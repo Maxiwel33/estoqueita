@@ -1,5 +1,9 @@
-import 'package:estoqueita/conexaomysql/mysql.dart';
+import 'dart:convert';
+
+import 'package:estoqueita/page/power_page.dart';
+import 'package:estoqueita/page/vendedores.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(const MyApp());
@@ -12,68 +16,62 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const LoginPage(),
+        routes: <String, WidgetBuilder>{
+          '/powerPage': (BuildContext context) => const PowerPage(),
+          '/vendedores': (BuildContext context) => const Vendedores(),
+          '/login': (BuildContext context) => const LoginPage(),
+        });
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-  var db = new Mysql();
-  var nome = '';
+class _LoginPageState extends State<LoginPage> {
+  TextEditingController controllerUser = TextEditingController();
+  TextEditingController controlePassword = TextEditingController();
 
-  void _getCustomer() {
-    db.getConnection().then((conn) {
-      String sql = 'SELECT nome FROM oficina_cntr.login where id = admin ;';
-      conn.query(sql).then((results) {
-        for (var row in results) {
-          setState(() {
-            nome = row[0];
-          });
-        }
+  String mensagem = '';
+
+  Future<List> login() async {
+    final response = await http.post(
+        "http://192.168.0.103/estoque/login.php" as Uri,
+        body: {"usuario": controllerUser.text, "senha": controlePassword.text});
+
+    var datauser = json.decode(response.body);
+
+    if (datauser.length == 0) {
+      setState(() {
+        mensagem = 'Usuario ou senha inválida';
       });
-      conn.close();
-    });
+    } else {
+      Navigator.pushReplacementNamed(context, '/powerPage');
+    }
+    return datauser;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'mail:',
-            ),
-            Text(
-              // ignore: unnecessary_string_interpolations
-              '$nome',
-            ),
-          ],
+      resizeToAvoidBottomInset: false,
+      body: Form(
+          child: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/image/02.jpeg"),
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _getCustomer,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ),
+      )),
     );
   }
 }

@@ -1,10 +1,10 @@
 import 'package:mysql1/mysql1.dart';
 
 class Mysql {
-  static String host = 'eanpictures.ccb1pdtvmiar.sa-east-1.rds.amazonaws.com',
-      user = 'admin',
-      password = 'TYmNHXbqdT',
-      db = 'oficina_cntr';
+  static String host = 'localhost',
+      user = 'root',
+      password = '',
+      db = 'estoque';
 
   static int port = 3306;
 

@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
@@ -62,16 +63,128 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Form(
-          child: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/image/02.jpeg"),
-            fit: BoxFit.cover,
+        resizeToAvoidBottomInset: false,
+        body: Form(
+            child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/image/02.jpg"),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-      )),
-    );
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.only(top: 77),
+                child: const CircleAvatar(
+                  backgroundColor: Color(0xF81F7F3),
+                  child: Image(
+                    width: 35,
+                    height: 35,
+                    image: AssetImage(
+                      'assets/image/01.jpeg',
+                    ),
+                  ),
+                ),
+                width: 170.0,
+                height: 170.0,
+                decoration: BoxDecoration(shape: BoxShape.circle),
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height / 2,
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.only(top: 93),
+                child: Column(children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width / 1.2,
+                    padding: const EdgeInsets.only(
+                      top: 4,
+                      left: 16,
+                      right: 16,
+                      bottom: 4,
+                    ),
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(50),
+                        ),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black,
+                            blurRadius: 5,
+                          ),
+                        ]),
+                    child: TextFormField(
+                      controller: controllerUser,
+                      decoration: const InputDecoration(
+                        icon: Icon(
+                          Icons.email,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width / 1.2,
+                    height: 50,
+                    margin: const EdgeInsets.only(
+                      top: 32,
+                    ),
+                    padding: const EdgeInsets.only(
+                      top: 4,
+                      left: 16,
+                      right: 16,
+                      bottom: 4,
+                    ),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(50),
+                      ),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 5,
+                        )
+                      ],
+                    ),
+                    child: TextField(
+                      controller: controlePassword,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                          icon: Icon(
+                            Icons.vpn_key,
+                            color: Colors.black,
+                          ),
+                          hintText: 'Password'),
+                    ),
+                  ),
+                  const Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        top: 6,
+                        right: 32,
+                      ),
+                      child: Text(
+                        'Atualizar Senha',
+                        style: TextStyle(
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Spacer(),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Acesso',
+                    ),
+                  )
+                ]),
+              ),
+            ],
+          ),
+        )));
   }
 }

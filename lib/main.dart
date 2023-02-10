@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
         resizeToAvoidBottomInset: false,
         body: Form(
             child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/image/02.jpg"),
               fit: BoxFit.cover,
@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: [
               Container(
-                padding: const EdgeInsets.only(top: 77),
+                padding: const EdgeInsets.only(top: 77.0),
                 child: const CircleAvatar(
                   backgroundColor: Color(0xF81F7F3),
                   child: Image(
@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 width: 170.0,
                 height: 170.0,
-                decoration: BoxDecoration(shape: BoxShape.circle),
+                decoration: const BoxDecoration(shape: BoxShape.circle),
               ),
               Container(
                 height: MediaQuery.of(context).size.height / 2,
@@ -174,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   ElevatedButton(
                     onPressed: () {},
                     child: const Text(
